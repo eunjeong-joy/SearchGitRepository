@@ -1,7 +1,5 @@
 package escape.com.searchgitrepository.data
 
-import java.util.*
-
 data class SearchResponse(
     val totalCount: Int = 0,
     val repositories: List<Repository>
