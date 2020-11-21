@@ -10,7 +10,6 @@ interface RepositoryInterfaceService {
 
     @GET("/search/repositories")
     fun requestSearchRepository(
-        @Header("Authorization") token:String,
         @Query("q") keyword: String,
         @Query("per_page") perPage: Int? = 20,
         @Query("page") page: Int? = 1
