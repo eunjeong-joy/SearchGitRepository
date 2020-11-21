@@ -2,7 +2,7 @@ package escape.com.searchgitrepository.data
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchResponse(
+data class RepositoryResponse(
     @SerializedName("total_count")
     val totalCount: Int = 0,
     @SerializedName("items")
