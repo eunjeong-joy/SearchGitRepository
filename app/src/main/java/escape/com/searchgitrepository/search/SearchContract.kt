@@ -4,6 +4,8 @@ interface SearchContract {
 
     interface View {
 
+        fun showProgress()
+        fun hideProgress()
     }
 
     interface Presenter {
