@@ -4,13 +4,16 @@ interface SearchContract {
 
     interface View {
 
+        var presenter: SearchContract.Presenter
+
         fun showProgress()
         fun hideProgress()
     }
 
     interface Presenter {
 
-        fun loadRepositories()
+        fun start()
+        fun loadRepositories(keyword: String)
 
     }
 
