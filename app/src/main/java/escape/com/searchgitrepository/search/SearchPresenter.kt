@@ -16,10 +16,10 @@ class SearchPresenter(
 
     override fun start() {}
 
-    override fun loadRepositories(keyword: String) {
+    override fun loadRepositories(keyword: String, page: Int) {
         view.showProgress()
 
-        repository.getRepository(keyword = keyword,page = 1,perPage = 20).enqueue(object : Callback<RepositoryResponse> {
+        repository.getRepository(keyword = keyword,page = page,perPage = 20).enqueue(object : Callback<RepositoryResponse> {
             override fun onFailure(call: Call<RepositoryResponse>, t: Throwable) {
 
             }
@@ -37,6 +37,8 @@ class SearchPresenter(
                         itemList.forEach {
                             itemRecyclerAdapter.addItem(it)
                         }
+                        if(itemList.size < 20) view.isEndOfList = true
+
                         itemRecyclerAdapter.notifyDataSetChanged()
                     } ?: let {
                         //count 0

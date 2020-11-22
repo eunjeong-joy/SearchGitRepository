@@ -4,7 +4,9 @@ interface SearchContract {
 
     interface View {
 
-        val presenter: SearchContract.Presenter
+        val presenter: Presenter
+
+        var isEndOfList: Boolean
 
         fun showProgress()
         fun hideProgress()
@@ -15,7 +17,7 @@ interface SearchContract {
     interface Presenter {
 
         fun start()
-        fun loadRepositories(keyword: String)
+        fun loadRepositories(keyword: String, page: Int)
 
     }
 

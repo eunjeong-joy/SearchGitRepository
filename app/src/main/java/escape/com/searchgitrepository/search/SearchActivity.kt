@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import escape.com.searchgitrepository.R
 import escape.com.searchgitrepository.data.source.ResultRemoteDataSource
 import escape.com.searchgitrepository.data.source.ResultRepository
@@ -15,9 +16,14 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
+    private var mKeyword: String = ""
+    private var mPage: Int = 1
+
     override val presenter: SearchContract.Presenter by lazy {
         SearchPresenter(this, ResultRepository.getInstance(ResultRemoteDataSource()), itemRecyclerAdapter)
     }
+
+    override var isEndOfList: Boolean = false
 
     private val itemRecyclerAdapter: ItemRecyclerAdapter by lazy{
         ItemRecyclerAdapter()
@@ -30,20 +36,31 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         list_recyclerview.run {
             adapter = itemRecyclerAdapter
             layoutManager = LinearLayoutManager(this.context)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    if(!canScrollVertically(1) && !isEndOfList){
+                        mPage++
+                        presenter.loadRepositories(mKeyword, mPage)
+                    }
+                }
+            })
         }
+
 
         input_search.setOnEditorActionListener{ textview, action, event ->
             var handled = false
-            var text = input_search.text.toString()
+            mKeyword = input_search.text.toString()
 
-            if(text.isEmpty()) {
+            if(mKeyword.isEmpty()) {
                 input_search.error = "Empty!"
             }
 
             if( action == EditorInfo.IME_ACTION_SEARCH) {
                 var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(input_search.windowToken, 0)
-                presenter.loadRepositories(text)
+                presenter.loadRepositories(mKeyword, mPage)
             }
 
             handled
