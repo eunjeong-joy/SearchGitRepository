@@ -1,20 +1,18 @@
 package escape.com.searchgitrepository.search
 
-import android.util.Log
 import escape.com.searchgitrepository.data.RepositoryResponse
 import escape.com.searchgitrepository.data.source.ResultRepository
+import escape.com.searchgitrepository.search.adapter.ItemRecyclerAdapter
+import escape.com.searchgitrepository.util.setCommaFormat
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SearchPresenter(
     private val view: SearchContract.View,
-    private val repository: ResultRepository
+    private val repository: ResultRepository,
+    private val itemRecyclerAdapter: ItemRecyclerAdapter
 ) : SearchContract.Presenter {
-
-    init {
-        view.presenter = this
-    }
 
     override fun start() {}
 
@@ -30,9 +28,21 @@ class SearchPresenter(
                 call: Call<RepositoryResponse>,
                 response: Response<RepositoryResponse>
             ) {
-                view.hideProgress()
-                if(response?.isSuccessful) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        var totalCount: Int = it.totalCount
+                        view.setRepositoryTotalCount(setCommaFormat(totalCount))
+
+                        var itemList = it.repositories
+                        itemList.forEach {
+                            itemRecyclerAdapter.addItem(it)
+                        }
+                        itemRecyclerAdapter.notifyDataSetChanged()
+                    } ?: let {
+                        //count 0
+                    }
                 }
+                view.hideProgress()
             }
         })
     }

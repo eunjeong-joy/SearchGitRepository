@@ -4,10 +4,12 @@ interface SearchContract {
 
     interface View {
 
-        var presenter: SearchContract.Presenter
+        val presenter: SearchContract.Presenter
 
         fun showProgress()
         fun hideProgress()
+
+        fun setRepositoryTotalCount(count: String)
     }
 
     interface Presenter {
