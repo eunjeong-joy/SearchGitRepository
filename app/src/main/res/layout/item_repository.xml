@@ -62,4 +62,12 @@
         app:layout_constraintTop_toTopOf="@id/tv_star_count"
         tools:text="Update on 24 Mar"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/navy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_star"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
