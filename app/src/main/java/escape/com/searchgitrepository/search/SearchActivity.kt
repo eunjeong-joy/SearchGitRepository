@@ -1,12 +1,15 @@
 package escape.com.searchgitrepository.search
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.recyclerview.widget.LinearLayoutManager
 import escape.com.searchgitrepository.R
 import escape.com.searchgitrepository.data.source.ResultRemoteDataSource
 import escape.com.searchgitrepository.data.source.ResultRepository
+import escape.com.searchgitrepository.search.adapter.ItemRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity(), SearchContract.View {
@@ -15,10 +18,18 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         SearchPresenter(this, ResultRepository.getInstance(ResultRemoteDataSource()), itemRecyclerAdapter)
     }
 
+    private val itemRecyclerAdapter: ItemRecyclerAdapter by lazy{
+        ItemRecyclerAdapter()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        list_item.run {
+            adapter = itemRecyclerAdapter
+            layoutManager = LinearLayoutManager(this.context)
+        }
 
         input_search.setOnEditorActionListener{ textview, action, event ->
             var handled = false
