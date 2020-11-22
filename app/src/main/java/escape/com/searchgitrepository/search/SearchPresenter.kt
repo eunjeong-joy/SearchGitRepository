@@ -35,7 +35,7 @@ class SearchPresenter(
                 if (response.isSuccessful) {
                     response.body()?.let { it ->
                         var totalCount: Int = it.totalCount
-                        view.setRepositoryTotalCount(setCommaFormat(totalCount))
+                        setTotalCount(totalCount)
 
                         var itemList = it.repositories
                         itemList.forEach {
@@ -44,12 +44,14 @@ class SearchPresenter(
                         if(itemList.size < PER_PAGE) view.isEndOfList = true
 
                         itemRecyclerAdapter.notifyDataSetChanged()
-                    } ?: let {
-                        //count 0
-                    }
+                    } ?: setTotalCount(0)
                 }
                 view.hideProgress()
             }
         })
+    }
+
+    private fun setTotalCount(totalCount: Int) {
+        view.setRepositoryTotalCount(setCommaFormat(totalCount))
     }
 }
