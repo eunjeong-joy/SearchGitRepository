@@ -17,7 +17,7 @@ data class Repository (
     @SerializedName("description")
     val description: String = "",
     @SerializedName("stargazers_count")
-    val stargazersCount: Int = 0,
+    val stargazersCount: Long = 0,
     @SerializedName("pushed_at")
     val pushedAt: String = "",
     @SerializedName("language")

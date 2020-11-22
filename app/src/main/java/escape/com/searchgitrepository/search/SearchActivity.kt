@@ -59,6 +59,6 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun setRepositoryTotalCount(count: String) {
-        tv_repository_count.text = count
+        tv_repository_count.text = count + " " + getString(R.string.total_count_title)
     }
 }
