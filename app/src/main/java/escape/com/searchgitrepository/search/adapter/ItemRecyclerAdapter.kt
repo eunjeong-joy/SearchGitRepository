@@ -21,4 +21,9 @@ class ItemRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun addItem(item: Repository) {
         itemList.add(item)
     }
+
+    fun clear() {
+        itemList.clear()
+        notifyDataSetChanged()
+    }
 }

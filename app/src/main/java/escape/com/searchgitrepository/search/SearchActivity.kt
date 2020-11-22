@@ -57,7 +57,9 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                 input_search.error = "Empty!"
             }
 
-            if( action == EditorInfo.IME_ACTION_SEARCH) {
+            if(action == EditorInfo.IME_ACTION_SEARCH) {
+                isEndOfList = false
+                itemRecyclerAdapter.clear()
                 var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(input_search.windowToken, 0)
                 presenter.loadRepositories(mKeyword, mPage)
