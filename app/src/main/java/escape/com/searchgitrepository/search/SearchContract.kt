@@ -8,6 +8,8 @@ interface SearchContract {
 
         fun showProgress()
         fun hideProgress()
+
+        fun setRepositoryTotalCount(count: Int)
     }
 
     interface Presenter {
