@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import escape.com.searchgitrepository.R
 import escape.com.searchgitrepository.data.source.ResultRemoteDataSource
@@ -40,6 +41,8 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
             }
 
             if( action == EditorInfo.IME_ACTION_SEARCH) {
+                var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(input_search.windowToken, 0)
                 presenter.loadRepositories(text)
             }
 
