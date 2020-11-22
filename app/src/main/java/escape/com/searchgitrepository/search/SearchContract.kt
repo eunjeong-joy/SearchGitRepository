@@ -9,7 +9,7 @@ interface SearchContract {
         fun showProgress()
         fun hideProgress()
 
-        fun setRepositoryTotalCount(count: Int)
+        fun setRepositoryTotalCount(count: String)
     }
 
     interface Presenter {

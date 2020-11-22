@@ -3,6 +3,7 @@ package escape.com.searchgitrepository.search
 import escape.com.searchgitrepository.data.RepositoryResponse
 import escape.com.searchgitrepository.data.source.ResultRepository
 import escape.com.searchgitrepository.search.adapter.ItemRecyclerAdapter
+import escape.com.searchgitrepository.util.setCommaFormat
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,7 +31,7 @@ class SearchPresenter(
                 if (response.isSuccessful) {
                     response.body()?.let {
                         var totalCount: Int = it.totalCount
-                        view.setRepositoryTotalCount(totalCount)
+                        view.setRepositoryTotalCount(setCommaFormat(totalCount))
 
                         var itemList = it.repositories
                         itemList.forEach {

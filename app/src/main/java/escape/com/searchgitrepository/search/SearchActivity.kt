@@ -58,7 +58,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         progress.visibility = View.GONE
     }
 
-    override fun setRepositoryTotalCount(count: Int) {
-        tv_repository_count.text = count.toString()
+    override fun setRepositoryTotalCount(count: String) {
+        tv_repository_count.text = count
     }
 }
