@@ -7,9 +7,10 @@ import escape.com.searchgitrepository.data.Repository
 class ItemRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val itemList = mutableListOf<Repository>()
+    lateinit var onClick: (Int) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ItemViewHolder(parent)
+        return ItemViewHolder(onClick, parent)
     }
 
     override fun getItemCount() = itemList.size
@@ -25,5 +26,9 @@ class ItemRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun clear() {
         itemList.clear()
         notifyDataSetChanged()
+    }
+
+    fun getItem(position: Int): Repository {
+        return itemList[position]
     }
 }

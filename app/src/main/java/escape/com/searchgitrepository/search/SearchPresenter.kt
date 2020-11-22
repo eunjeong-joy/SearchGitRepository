@@ -18,7 +18,12 @@ class SearchPresenter(
         const val PER_PAGE = 20
     }
 
-    override fun start() {}
+    init {
+        itemRecyclerAdapter.onClick = { position ->
+            var url = itemRecyclerAdapter.getItem(position).htmlUrl
+            view.goRepositoryWeb(url)
+        }
+    }
 
     override fun loadRepositories(keyword: String, page: Int) {
         view.showProgress()

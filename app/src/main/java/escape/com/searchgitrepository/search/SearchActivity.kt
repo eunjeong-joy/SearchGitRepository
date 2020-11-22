@@ -1,6 +1,8 @@
 package escape.com.searchgitrepository.search
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -86,4 +88,9 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         Toast.makeText(this@SearchActivity, message, Toast.LENGTH_SHORT).show()
     }
 
+    override fun goRepositoryWeb(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
 }
