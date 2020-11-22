@@ -12,6 +12,8 @@ interface SearchContract {
         fun hideProgress()
 
         fun setRepositoryTotalCount(count: String)
+
+        fun showErrorMessage(message: String)
     }
 
     interface Presenter {

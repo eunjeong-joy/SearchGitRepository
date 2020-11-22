@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import escape.com.searchgitrepository.R
@@ -80,4 +81,9 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     override fun setRepositoryTotalCount(count: String) {
         tv_repository_count.text = count + " " + getString(R.string.total_count_title)
     }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this@SearchActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
 }

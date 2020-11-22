@@ -25,7 +25,7 @@ class SearchPresenter(
 
         repository.getRepository(keyword = keyword,page = page,perPage = PER_PAGE).enqueue(object : Callback<RepositoryResponse> {
             override fun onFailure(call: Call<RepositoryResponse>, t: Throwable) {
-
+                view.showErrorMessage(t.message.toString())
             }
 
             override fun onResponse(
