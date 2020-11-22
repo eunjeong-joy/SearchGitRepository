@@ -36,6 +36,7 @@ class SearchPresenter(
                         itemList.forEach {
                             itemRecyclerAdapter.addItem(it)
                         }
+                        itemRecyclerAdapter.notifyDataSetChanged()
                     } ?: let {
                         //count 0
                     }
