@@ -27,7 +27,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        list_item.run {
+        list_recyclerview.run {
             adapter = itemRecyclerAdapter
             layoutManager = LinearLayoutManager(this.context)
         }
