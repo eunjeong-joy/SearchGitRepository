@@ -10,8 +10,14 @@ import escape.com.searchgitrepository.util.setShortNumberFormat
 import escape.com.searchgitrepository.util.setUpdatedDateFormat
 import kotlinx.android.synthetic.main.item_repository.view.*
 
-class ItemViewHolder(parent: ViewGroup)
+class ItemViewHolder(onClick: (Int) -> Unit, parent: ViewGroup)
     : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_repository, parent, false)) {
+
+    init {
+        itemView.setOnClickListener {
+            onClick(adapterPosition)
+        }
+    }
 
     fun onBind(item: Repository) {
         itemView.run {
