@@ -12,10 +12,6 @@ class SearchPresenter(
     private val repository: ResultRepository
 ) : SearchContract.Presenter {
 
-    init {
-        view.presenter = this
-    }
-
     override fun start() {}
 
     override fun loadRepositories(keyword: String) {

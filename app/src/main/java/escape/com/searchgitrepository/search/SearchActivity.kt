@@ -11,13 +11,14 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
-    override lateinit var presenter: SearchContract.Presenter
+    override val presenter: SearchContract.Presenter by lazy {
+        SearchPresenter(this, ResultRepository.getInstance(ResultRemoteDataSource()), itemRecyclerAdapter)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        presenter = SearchPresenter(this, ResultRepository.getInstance(ResultRemoteDataSource()))
 
         input_search.setOnEditorActionListener{ textview, action, event ->
             var handled = false
