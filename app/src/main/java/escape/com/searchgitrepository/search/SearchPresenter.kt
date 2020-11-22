@@ -14,12 +14,16 @@ class SearchPresenter(
     private val itemRecyclerAdapter: ItemRecyclerAdapter
 ) : SearchContract.Presenter {
 
+    companion object {
+        const val PER_PAGE = 20
+    }
+
     override fun start() {}
 
     override fun loadRepositories(keyword: String, page: Int) {
         view.showProgress()
 
-        repository.getRepository(keyword = keyword,page = page,perPage = 20).enqueue(object : Callback<RepositoryResponse> {
+        repository.getRepository(keyword = keyword,page = page,perPage = PER_PAGE).enqueue(object : Callback<RepositoryResponse> {
             override fun onFailure(call: Call<RepositoryResponse>, t: Throwable) {
 
             }
@@ -29,7 +33,7 @@ class SearchPresenter(
                 response: Response<RepositoryResponse>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let {
+                    response.body()?.let { it ->
                         var totalCount: Int = it.totalCount
                         view.setRepositoryTotalCount(setCommaFormat(totalCount))
 
@@ -37,7 +41,7 @@ class SearchPresenter(
                         itemList.forEach {
                             itemRecyclerAdapter.addItem(it)
                         }
-                        if(itemList.size < 20) view.isEndOfList = true
+                        if(itemList.size < PER_PAGE) view.isEndOfList = true
 
                         itemRecyclerAdapter.notifyDataSetChanged()
                     } ?: let {
