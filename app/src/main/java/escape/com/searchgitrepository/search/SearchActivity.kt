@@ -99,6 +99,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     private fun resetResultList() {
         isEndOfList = false
         itemRecyclerAdapter.clear()
+        mPage = 1
     }
 
     private fun hideKeyboard() {
