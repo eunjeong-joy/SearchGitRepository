@@ -20,6 +20,7 @@ class ItemViewHolder(onClick: (Int) -> Unit, parent: ViewGroup)
     }
 
     fun onBind(item: Repository) {
+        resetLayout()
         itemView.run {
             tv_name.text = item.fullName
             if(item.description.isNullOrEmpty()) {
@@ -30,6 +31,12 @@ class ItemViewHolder(onClick: (Int) -> Unit, parent: ViewGroup)
             tv_star_count.text = setShortNumberFormat(item.stargazersCount)
             tv_language.text = item.language
             tv_update_date.text = resources.getString(R.string.label_update_at) + " " + setUpdatedDateFormat(item.pushedAt)
+        }
+    }
+
+    private fun resetLayout() {
+        itemView.run {
+            tv_description.visibility = View.VISIBLE
         }
     }
 
