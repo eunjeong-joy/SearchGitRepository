@@ -30,7 +30,7 @@ class SearchPresenter(
 
         repository.getRepository(keyword = keyword,page = page,perPage = PER_PAGE).enqueue(object : Callback<RepositoryResponse> {
             override fun onFailure(call: Call<RepositoryResponse>, t: Throwable) {
-                view.showErrorMessage(t.message.toString())
+                showToastErrorMessage(t.message.toString())
             }
 
             override fun onResponse(
@@ -51,7 +51,7 @@ class SearchPresenter(
                         itemRecyclerAdapter.notifyDataSetChanged()
                     } ?: setTotalCount(0)
                 } else {
-                    view.showErrorMessage(response.message())
+                    showToastErrorMessage(response.message())
                 }
                 view.hideProgress()
             }
@@ -60,5 +60,9 @@ class SearchPresenter(
 
     private fun setTotalCount(totalCount: Int) {
         view.setRepositoryTotalCount(setCommaFormat(totalCount))
+    }
+
+    private fun showToastErrorMessage(message: String) {
+        view.showErrorMessage(message)
     }
 }
