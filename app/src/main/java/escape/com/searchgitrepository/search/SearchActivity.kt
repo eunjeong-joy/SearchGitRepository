@@ -19,6 +19,10 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity(), SearchContract.View {
 
+    companion object {
+        const val SCROLL_END = 1
+    }
+
     private var mKeyword: String = ""
     private var mPage: Int = 1
 
@@ -43,7 +47,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
 
-                    if(!canScrollVertically(1) && !isEndOfList){
+                    if(!canScrollVertically(SCROLL_END) && !isEndOfList){
                         mPage++
                         presenter.loadRepositories(mKeyword, mPage)
                     }
@@ -57,14 +61,12 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
             mKeyword = input_search.text.toString()
 
             if(mKeyword.isEmpty()) {
-                input_search.error = "Empty!"
+                input_search.error = getString(R.string.error_empty)
             }
 
             if(action == EditorInfo.IME_ACTION_SEARCH) {
-                isEndOfList = false
-                itemRecyclerAdapter.clear()
-                var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(input_search.windowToken, 0)
+                resetResultList()
+                hideKeyboard()
                 presenter.loadRepositories(mKeyword, mPage)
             }
 
@@ -81,7 +83,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
     }
 
     override fun setRepositoryTotalCount(count: String) {
-        tv_repository_count.text = count + " " + getString(R.string.total_count_title)
+        tv_repository_count.text = count + " " + getString(R.string.title_total_count)
     }
 
     override fun showErrorMessage(message: String) {
@@ -92,5 +94,15 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         startActivity(intent)
+    }
+
+    private fun resetResultList() {
+        isEndOfList = false
+        itemRecyclerAdapter.clear()
+    }
+
+    private fun hideKeyboard() {
+        var imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(input_search.windowToken, 0)
     }
 }

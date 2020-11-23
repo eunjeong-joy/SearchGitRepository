@@ -29,7 +29,7 @@ class ItemViewHolder(onClick: (Int) -> Unit, parent: ViewGroup)
             }
             tv_star_count.text = setShortNumberFormat(item.stargazersCount)
             tv_language.text = item.language
-            tv_update_date.text = resources.getString(R.string.update_at_label) + " " + setUpdatedDateFormat(item.pushedAt)
+            tv_update_date.text = resources.getString(R.string.label_update_at) + " " + setUpdatedDateFormat(item.pushedAt)
         }
     }
 
