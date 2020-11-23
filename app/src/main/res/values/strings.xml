@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SearchGitRepository</string>
+
+    <string name="error_empty">Empty!!</string>
+    <string name="title_total_count">repository results</string>
+    <string name="label_update_at">Update On</string>
 </resources>
