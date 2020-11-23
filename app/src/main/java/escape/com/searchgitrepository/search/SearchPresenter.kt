@@ -39,8 +39,7 @@ class SearchPresenter(
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let { it ->
-                        var totalCount: Int = it.totalCount
-                        setTotalCount(totalCount)
+                        setTotalCount(it.totalCount)
 
                         var itemList = it.repositories
                         itemList.forEach {
