@@ -50,6 +50,8 @@ class SearchPresenter(
 
                         itemRecyclerAdapter.notifyDataSetChanged()
                     } ?: setTotalCount(0)
+                } else {
+                    view.showErrorMessage(response.message())
                 }
                 view.hideProgress()
             }
