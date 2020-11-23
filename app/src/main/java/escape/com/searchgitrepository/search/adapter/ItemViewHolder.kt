@@ -29,7 +29,11 @@ class ItemViewHolder(onClick: (Int) -> Unit, parent: ViewGroup)
                 tv_description.text = item.description
             }
             tv_star_count.text = setShortNumberFormat(item.stargazersCount)
-            tv_language.text = item.language
+            if(item.language.isNullOrEmpty()) {
+                tv_language.visibility = View.GONE
+            } else {
+                tv_language.text = item.language
+            }
             tv_update_date.text = resources.getString(R.string.label_update_at) + " " + setUpdatedDateFormat(item.pushedAt)
         }
     }
@@ -37,6 +41,7 @@ class ItemViewHolder(onClick: (Int) -> Unit, parent: ViewGroup)
     private fun resetLayout() {
         itemView.run {
             tv_description.visibility = View.VISIBLE
+            tv_language.visibility = View.VISIBLE
         }
     }
 
